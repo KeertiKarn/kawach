@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kawach - Spiritual Sanitation Shield</title>
+    <style>
+        /* --- 1. Custom Variables and Base Styles --- */
+        :root {
+            --spiritual-orange: #D97706; /* Deep Saffron/Vermillion */
+            --accent-gold: #FBBF24; /* Gold/Amber */
+            --background-cream: #FFFBEB; /* Light Creamy background */
+            --primary-dark: #44403C; /* Warm dark gray for text */
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            --shadow-orange: 0 10px 15px -3px rgba(217, 119, 6, 0.2), 0 4px 6px -2px rgba(217, 119, 6, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fffaf0; /* Slightly off-white */
+            color: var(--primary-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        /* Responsive Container */
+        #app {
+            max-width: 1200px;
+            margin: auto;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- 2. Header and Typography --- */
+        header {
+            margin-bottom: 40px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(251, 191, 36, 0.5);
+        }
+
+        .header-title {
+            font-size: 2.5rem; /* 40px */
+            font-weight: 800;
+            color: var(--spiritual-orange);
+            letter-spacing: -0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-subtitle {
+            font-size: 1.125rem; /* 18px */
+            margin-left: 12px;
+            font-weight: 400;
+            color: var(--primary-dark);
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .header-title { justify-content: flex-start; }
+            .header-subtitle { display: inline; }
+            #app { padding: 40px; }
+        }
+
+        /* --- 3. Cards and Containers --- */
+        .card {
+            background-color: #fff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-landing {
+            box-shadow: var(--shadow-orange);
+        }
+
+        .grid-3 {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: 2fr 1fr;
+                max-width: 100%;
+            }
+        }
+        
+        .grid-2 {
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* --- 4. Forms and Inputs --- */
+        .form-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-orange);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            display: block;
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: var(--spiritual-orange);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.3);
+        }
+        
+        /* --- 5. Buttons and Interactions --- */
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            transform: translateY(0);
+            box-shadow: var(--shadow-light);
+            width: 100%;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--spiritual-orange);
+            color: #fff;
+        }
+        .btn-secondary {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+        .btn-dark {
+            background-color: var(--primary-dark);
+            color: #fff;
+        }
+        .btn-text {
+            background: none;
+            border: none;
+            color: var(--spiritual-orange);
+            font-weight: 500;
+            text-align: center;
+            padding: 8px;
+            width: auto;
+            margin-top: 10px;
+        }
+        .btn-text:hover {
+            text-decoration: underline;
+            opacity: 1;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- 6. Status and Badges --- */
+        .status-pill {
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1;
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+        .status-pending { background-color: #fee2e2; color: #991b1b; border-color: #fca5a5; } /* Red */
+        .status-assigned { background-color: #fffbe6; color: var(--spiritual-orange); border-color: var(--accent-gold); } /* Gold */
+        .status-completed { background-color: #d1fae5; color: #065f46; border-color: #a7f3d0; } /* Green */
+
+        /* Complaint Item Styling */
+        .complaint-item {
+            background-color: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-left: 5px solid;
+            margin-bottom: 12px;
+        }
+        @media (min-width: 640px) {
+            .complaint-item {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        .item-pending { border-left-color: #ef4444; }
+        .item-assigned { border-left-color: var(--accent-gold); }
+        .item-completed { border-left-color: #10b981; }
+
+        .item-info {
+            flex-grow: 1;
+        }
+
+        .item-actions {
+            flex-shrink: 0;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        /* --- 7. Alert Box Styling --- */
+        .alert-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid;
+            z-index: 1000;
+            transition: transform 0.3s ease-out;
+            transform: translateX(100%);
+        }
+        .alert-box.show { transform: translateX(0); }
+        .alert-success { background-color: #d1fae5; border-color: #10b981; color: #065f46; }
+        .alert-error { background-color: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .alert-info { background-color: #dbeafe; border-color: #3b82f6; color: #1e40af; }
+
+        /* --- 8. Specific Layout Fixes --- */
+        .center-text { text-align: center; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .pb-2 { padding-bottom: 8px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-12 { margin-top: 48px; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .text-gray { color: #6b7280; }
+        .text-red { color: #ef4444; }
+        .text-green { color: #10b981; }
+        .border-bottom { border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body>
+
+    <!-- SVG Logo Icon -->
+    <svg style="display: none;">
+        <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path id="path-gold" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-5.618 3.04A12.004 12.004 0 0012 21c3.678 0 7.357-1.428 10-4.016V6.016z" />
+            <path id="path-orange" stroke-linecap="round" stroke-linejoin="round" d="M10 17l2 2 4-4" />
+        </symbol>
+    </svg>
+
+    <!-- Main Application Container -->
+    <div id="app" class="main-container">
+        <!-- Header -->
+        <header>
+            <h1 class="header-title">
+                <svg class="w-8 h-8 mr-3" style="width: 40px; height: 40px;">
+                    <use xlink:href="#icon-shield" style="fill: none; stroke: var(--spiritual-orange);" />
+                </svg>
+                Kawach <span class="header-subtitle"> | Sanitation Shield</span>
+            </h1>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <div id="content-area">
+            <!-- Content will be injected here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Global State Management ---
+        const API_URL = 'api.php'; // Your PHP backend endpoint
+        let currentView = 'landing';
+        let currentUserRole = null;
+        let currentUserId = null;
+        let currentPilgrimPhone = null;
+
+        const contentArea = document.getElementById('content-area');
+
+        // Mock Data is replaced by fetching from API, but we keep the structure for utility.
+        let workersList = []; // Will be populated from API
+        
+        // --- View Rendering Functions ---
+        function render() {
+            contentArea.innerHTML = ''; // Clear previous content
+
+            switch (currentView) {
+                case 'landing':
+                    contentArea.innerHTML = renderLandingPage();
+                    break;
+                case 'login':
+                    contentArea.innerHTML = renderLoginView();
+                    // Update form input type based on selected role
+                    updateLoginForm(document.getElementById('role-select-input').value);
+                    break;
+                case 'pilgrim-register':
+                    contentArea.innerHTML = renderPilgrimRegistrationForm();
+                    break;
+                case 'pilgrim-dashboard':
+                    contentArea.innerHTML = renderPilgrimDashboard();
+                    break;
+                case 'pilgrim-complain':
+                    contentArea.innerHTML = renderPilgrimComplainForm();
+                    break;
+                case 'pilgrim-status':
+                    fetchPilgrimStatus();
+                    break;
+                case 'worker-dashboard':
+                    fetchWorkerTasks();
+                    break;
+                case 'official-dashboard':
+                    fetchOfficialDashboard();
+                    break;
+            }
+
+            attachEventListeners(); // Re-attach listeners after rendering
+        }
+
+        // --- Core Navigation and Login Logic ---
+        
+        function navigate(viewName, role = null) {
+            if (role) {
+                currentView = 'login';
+                render();
+                // Set the role after the view is rendered
+                document.getElementById('role-select-input').value = role;
+                updateLoginForm(role);
+            } else {
+                currentView = viewName;
+                render();
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const role = document.getElementById('role-select-input').value;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value; 
+
+            if (!username || !password) {
+                alertBox('Input Required', 'Please enter both credentials.', 'error');
+                return;
+            }
+            
+            // --- API Call: Login ---
+            try {
+                const response = await fetch(`${API_URL}?action=login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, role })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    currentUserRole = role;
+                    currentUserId = result.id;
+                    currentPilgrimPhone = result.phone || null;
+                    currentView = `${role}-dashboard`;
+                    render();
+                    alertBox('Login Successful', `Welcome, ${role}! ID: ${currentUserId}.`, 'success');
+                } else {
+                    alertBox('Login Failed', result.message || 'Invalid credentials.', 'error');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Could not connect to the backend server.', 'error');
+                console.error('Login Error:', error);
+            }
+        }
+
+        // --- View HTML Templates ---
+        
+        function renderLandingPage() {
+            return `
+                <div class="grid-3" style="max-width: 900px; margin: 0 auto;">
+                    <!-- Left Section: Welcome & Role Buttons -->
+                    <div class="card card-landing" style="grid-column: 1 / -1; padding: 40px; background-color: var(--background-cream);">
+                        <h2 class="text-xl font-bold" style="color: var(--spiritual-orange); margin-bottom: 16px;">Dedicated to a Clean & Holy Experience</h2>
+                        <p style="color: var(--primary-dark); margin-bottom: 32px; font-size: 16px;">
+                            Kawach is your direct line to ensure the highest standards of sanitation across the gathering. Your reports enable swift action.
+                        </p>
+
+                        <h3 class="text-lg font-semibold border-bottom pb-2 mb-4" style="color: var(--primary-dark);">Select Your Journey</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 16px;">
+                            <!-- Pilgrim Button -->
+                            <button onclick="navigate('login', 'pilgrim')" class="btn btn-primary">
+                                <span class="text-xl">🙏</span><br>Pilgrim Login
+                            </button>
+                            <!-- Worker Button -->
+                            <button onclick="navigate('login', 'worker')" class="btn btn-secondary">
+                                <span class="text-xl">🛠️</span><br>Worker Login
+                            </button>
+                            <!-- Official Button -->
+                            <button onclick="navigate('login', 'official')" class="btn btn-dark">
+                                <span class="text-xl">👑</span><br>Official Login
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Section: Pilgrim Registration CTA -->
+                    <div class="card" style="grid-column: 1 / -1; border-top: 4px solid var(--spiritual-orange); text-align: center;">
+                        <h3 class="text-xl font-bold" style="color: var(--spiritual-orange); margin-bottom: 12px;">New User? Register</h3>
+                         <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 20px;">
+                            Register now to get your unique ID and securely track your complaints.
+                        </p>
+                        <button onclick="navigate('pilgrim-register')" class="btn btn-secondary" style="width: 80%; margin: 0 auto;">
+                            Pilgrim Registration
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPilgrimRegistrationForm() {
+            return `
+                <div class="form-container">
+                    <h2 class="text-xl font-bold center-text border-bottom pb-2 mb-6" style="color: var(--spiritual-orange);">Pilgrim Registration</h2>
+                    <form id="pilgrim-registration-form">
+                        <div class="form-group">
+                            <label for="reg-name" class="form-label">Full Name</label>
+                            <input type="text" id="reg-name" required placeholder="Your Name" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-phone" class="form-label">Phone Number (10 Digits)</label>
+                            <input type="tel" id="reg-phone" required pattern="[0-9]{10}" placeholder="e.g. 9876543210 (Used for Login)" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password" class="form-label">Set Password (Use 'pass' for mock)</label>
+                            <input type="password" id="reg-password" required placeholder="Enter desired password" class="form-input" value="pass">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary mt-4">
+                            Register & Proceed to Login
+                        </button>
+                    </form>
+                    <button onclick="navigate('landing')" class="btn-text" style="color: #6b7280; width: 100%;">
+                        ← Back to Landing Page
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderLoginView() {
+            return `
+                <div class="form-container">
+                    <h2 class="text-xl font-bold center-text" style="color: var(--spiritual-orange); margin-bottom: 24px;">Secure Access</h2>
+
+                    <!-- Hidden input to track selected role for JS logic -->
+                    <input type="hidden" id="role-select-input" value="pilgrim">
+
+                    <form id="login-form">
+                        <div class="form-group" id="username-container">
+                            <!-- Input will be dynamically set by updateLoginForm -->
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password (Mock: "pass")</label>
+                            <input type="password" id="password" name="password" required placeholder="Enter Password" value="pass" class="form-input">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-4">
+                            Login
+                        </button>
+                    </form>
+
+                    <button onclick="navigate('landing')" class="btn-text" style="color: #6b7280; width: 100%;">
+                        ← Back to Landing Page
+                    </button>
+                </div>
+            `;
+        }
+        
+        function updateLoginForm(role) {
+            const container = document.getElementById('username-container');
+            if (!container) return;
+            
+            let labelText, placeholderText, inputType;
+
+            if (role === 'pilgrim') {
+                labelText = 'Phone Number (10 Digits)';
+                placeholderText = 'Enter your registered phone number (e.g., 9876543210)';
+                inputType = 'tel';
+            } else {
+                labelText = 'User ID (e.g., W-78 or O-01)';
+                placeholderText = 'Enter ID';
+                inputType = 'text';
+            }
+
+            container.innerHTML = `
+                <label for="username" class="form-label">${labelText}</label>
+                <input type="${inputType}" id="username" name="username" required placeholder="${placeholderText}" class="form-input">
+            `;
+        }
+        
+        function renderPilgrimDashboard() {
+            const phoneDisplay = currentPilgrimPhone || currentUserId;
+            return `
+                <div style="max-width: 700px; margin: 0 auto;">
+                    <h2 class="text-xl font-bold mb-6" style="color: var(--primary-dark);">Welcome Back! | Phone: ${phoneDisplay}</h2>
+                    <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <!-- Complaint Card -->
+                        <div onclick="navigate('pilgrim-complain')" class="card" style="cursor: pointer; border-top: 4px solid var(--spiritual-orange);">
+                            <div class="text-2xl mb-2" style="color: var(--spiritual-orange);">🚨</div>
+                            <h3 class="text-lg font-semibold">File a Complaint</h3>
+                            <p style="color: #6b7280; font-size: 0.875rem;">Scan the QR code to report sanitation issues immediately.</p>
+                        </div>
+
+                        <!-- Status Card -->
+                        <div onclick="navigate('pilgrim-status')" class="card" style="cursor: pointer; border-top: 4px solid var(--accent-gold);">
+                            <div class="text-2xl mb-2" style="color: var(--accent-gold);">📋</div>
+                            <h3 class="text-lg font-semibold">Check Status</h3>
+                            <p style="color: #6b7280; font-size: 0.875rem;">View the latest status and worker assignment for your reports.</p>
+                        </div>
+
+                        <!-- Info Card (Mock) -->
+                        <div class="card" style="border-top: 4px solid #ccc;">
+                            <div class="text-2xl mb-2" style="color: #999;">ℹ️</div>
+                            <h3 class="text-lg font-semibold">Gathering Info</h3>
+                            <p style="color: #6b7280; font-size: 0.875rem;">Access maps, schedules, and important emergency contacts.</p>
+                        </div>
+                    </div>
+                </div>
+                ${renderLogoutButton()}
+            `;
+        }
+
+        function renderPilgrimComplainForm() {
+            const defaultContact = currentPilgrimPhone || '';
+             return `
+                <div class="form-container" style="border: 1px solid rgba(217, 119, 6, 0.3);">
+                    <h2 class="text-xl font-bold border-bottom pb-2 mb-6" style="color: var(--spiritual-orange);">New Sanitation Complaint</h2>
+                    <form id="complaint-form">
+                        <div class="form-group">
+                            <label for="qr-code" class="form-label">Facility QR Code / ID</label>
+                            <input type="text" id="qr-code" name="qr-code" required placeholder="e.g. T0045A (Simulated Scan)" class="form-input">
+                            <p style="font-size: 0.75rem; color: #999; margin-top: 4px;">This ID links the complaint to the exact toilet location.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Complaint Details</label>
+                            <textarea id="description" name="description" rows="4" required placeholder="Describe the issue clearly (e.g. Waterlogging, blocked toilet, no light)." class="form-textarea"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact" class="form-label">Your Contact (Optional)</label>
+                            <input type="text" id="contact" name="contact" placeholder="Phone (e.g. 987XXXXXX0)" value="${defaultContact}" class="form-input">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-4">
+                            Submit Complaint to Kawach
+                        </button>
+                    </form>
+                    <button onclick="navigate('pilgrim-dashboard')" class="btn-text" style="color: var(--spiritual-orange);">
+                        ← Back to Pilgrim Menu
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderPilgrimStatus(complaints) {
+            const complaintList = complaints.map(c => {
+                const statusClass = c.status === 'Completed' ? 'status-completed' : (c.status === 'Assigned' ? 'status-assigned' : 'status-pending');
+                const itemClass = c.status === 'Completed' ? 'item-completed' : (c.status === 'Assigned' ? 'item-assigned' : 'item-pending');
+                return `
+                    <div class="complaint-item ${itemClass}">
+                        <div class="item-info">
+                            <p style="font-size: 0.9rem; font-weight: 600; color: var(--primary-dark);">${c.id} - ${c.location}</p>
+                            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 400px;">${c.description}</p>
+                        </div>
+                        <div class="item-actions">
+                            <span class="status-pill ${statusClass}">${c.status}</span>
+                            <p style="font-size: 0.75rem; color: #999; margin-top: 4px;">${c.assignedWorker ? `Worker: ${c.assignedWorker}` : 'Waiting for Assignment'}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            contentArea.innerHTML = `
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2 class="text-xl font-bold mb-6" style="color: var(--spiritual-orange);">Your Complaint History</h2>
+                    <div style="margin-bottom: 24px;">
+                        ${complaintList.length > 0 ? complaintList : '<p class="card" style="background-color: var(--background-cream);">No complaints filed under this account yet.</p>'}
+                    </div>
+                    <button onclick="navigate('pilgrim-dashboard')" class="btn-text" style="color: var(--spiritual-orange);">← Back to Pilgrim Menu</button>
+                </div>
+                ${renderLogoutButton()}
+            `;
+        }
+        
+        // --- 5. Worker Dashboard ---
+        function renderWorkerDashboard(tasks) {
+            const workerId = currentUserId;
+            const assignedTasks = tasks.filter(c => c.status === 'Assigned');
+            const completedTasks = tasks.filter(c => c.status === 'Completed');
+            
+            const taskList = (tasks, type) => tasks.map(c => `
+                <div class="card" style="margin-bottom: 12px; border-left: 4px solid ${type === 'assigned' ? 'var(--accent-gold)' : 'var(--accent-gold)'};">
+                    <p style="font-size: 0.9rem; font-weight: 600;">${c.id} - ${c.location}</p>
+                    <p style="font-size: 0.8rem; color: #6b7280; margin-top: 4px;">${c.description}</p>
+                    <p style="font-size: 0.75rem; color: #999; margin-top: 8px;">Filed: ${c.date}</p>
+                    ${type === 'assigned' ? `<button onclick="showCompleteTask('${c.id}')" class="btn btn-secondary" style="width: auto; padding: 6px 12px; margin-top: 12px; background-color: #10b981; color: white; font-size: 0.75rem; box-shadow: none;">Complete Task</button>` : `<p style="font-size: 0.75rem; color: #10b981; margin-top: 8px;">Completed.</p>`}
+                </div>
+            `).join('');
+
+            contentArea.innerHTML = `
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <h2 class="text-xl font-bold border-bottom pb-2 mb-6" style="color: var(--primary-dark);">Worker Panel | ${workerId}</h2>
+
+                    <div id="completion-form-area" class="card" style="margin-bottom: 24px; display: none; background-color: var(--spiritual-orange); color: white;"></div>
+
+                    <div class="grid-2">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4" style="color: var(--spiritual-orange);">🎯 Assigned Duties (${assignedTasks.length})</h3>
+                            <div style="min-height: 100px;">
+                                ${assignedTasks.length > 0 ? taskList(assignedTasks, 'assigned') : '<p style="color: #6b7280; padding: 16px; background-color: var(--background-cream); border-radius: 8px;">No active tasks. Ready for the next assignment!</p>'}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4" style="color: #10b981;">✅ Completed Tasks (${completedTasks.length})</h3>
+                            <div style="min-height: 100px;">
+                                ${completedTasks.length > 0 ? taskList(completedTasks, 'completed') : '<p style="color: #6b7280; padding: 16px; background-color: var(--background-cream); border-radius: 8px;">No history of completed tasks yet.</p>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ${renderLogoutButton()}
+            `;
+        }
+        
+        function showCompleteTask(complaintId) {
+            const formArea = document.getElementById('completion-form-area');
+            
+            formArea.style.display = 'block';
+            formArea.style.backgroundColor = 'var(--background-cream)';
+            formArea.style.color = 'var(--primary-dark)';
+            formArea.style.border = '1px solid var(--spiritual-orange)';
+            
+            formArea.innerHTML = `
+                <h4 class="text-lg font-semibold mb-3" style="color: var(--spiritual-orange);">Complete Task: ${complaintId}</h4>
+                <form id="task-completion-form" data-id="${complaintId}" style="margin-top: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Upload Photo After Cleaning (Mock)</label>
+                        <input type="file" id="completion-photo" accept="image/*" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="completion-notes" class="form-label">Notes (Required)</label>
+                        <textarea id="completion-notes" rows="2" required placeholder="Mandatory: Describe the actions taken." class="form-textarea"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4">
+                        Confirm and Submit Proof
+                    </button>
+                    <button type="button" onclick="document.getElementById('completion-form-area').style.display='none';" class="btn-text" style="color: #ef4444; width: auto; display: block; margin-top: 8px;">Cancel</button>
+                </form>
+            `;
+            // Scroll to the form
+            formArea.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- 6. Official Dashboard ---
+        function renderOfficialDashboard(data) {
+            const pendingComplaints = data.complaints.filter(c => c.status === 'Pending');
+            const activeComplaints = data.complaints.filter(c => c.status === 'Assigned');
+            workersList = data.workers; // Update global list
+
+            const renderComplaintItem = (c, isPending) => {
+                const workerOptions = workersList.map(w => `<option value="${w.id}">${w.name} (${w.id})</option>`).join('');
+                return `
+                    <div class="complaint-item ${isPending ? 'item-pending' : 'item-assigned'}">
+                        <div class="item-info">
+                            <p style="font-size: 0.9rem; font-weight: 600; color: var(--primary-dark);">${c.id} - ${c.location}</p>
+                            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 4px;">${c.description}</p>
+                            <p style="font-size: 0.75rem; color: #999; margin-top: 4px;">Filed: ${c.date} | Contact: ${c.contact}</p>
+                        </div>
+                        <div class="item-actions" style="margin-top: 8px;">
+                            ${isPending ? `
+                                <select id="worker-select-${c.id}" class="form-select" style="font-size: 0.8rem; padding: 4px 8px; width: 150px;">
+                                    <option value="">Select Worker</option>
+                                    ${workerOptions}
+                                </select>
+                                <button onclick="assignTask('${c.id}')" class="btn btn-primary" style="width: auto; padding: 4px 10px; margin-top: 4px; font-size: 0.8rem; box-shadow: none;">Assign</button>
+                            ` : `
+                                <span class="status-pill status-assigned">Assigned</span>
+                                <p style="font-size: 0.75rem; color: var(--spiritual-orange);">Worker: ${c.assigned_worker_id}</p>
+                            `}
+                        </div>
+                    </div>
+                `;
+            };
+
+            const pendingList = pendingComplaints.map(c => renderComplaintItem(c, true)).join('');
+            const activeList = activeComplaints.map(c => renderComplaintItem(c, false)).join('');
+
+            contentArea.innerHTML = `
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <h2 class="text-xl font-bold border-bottom pb-2 mb-6" style="color: var(--spiritual-orange);">Official Command Center | ${currentUserId}</h2>
+                    <div class="grid-2">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4" style="color: #ef4444;">🔴 New Complaints to Allocate (${pendingComplaints.length})</h3>
+                            <div style="min-height: 150px;">
+                                ${pendingList.length > 0 ? pendingList : '<p class="card" style="background-color: var(--background-cream);">No new complaints requiring action.</p>'}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4" style="color: var(--accent-gold);">🛠️ Tasks Currently Active (${activeComplaints.length})</h3>
+                            <div style="min-height: 150px;">
+                                ${activeList.length > 0 ? activeList : '<p class="card" style="background-color: var(--background-cream);">All tasks are currently completed or unassigned.</p>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ${renderLogoutButton()}
+            `;
+        }
+
+        // --- Core Application Logic (Fetch Wrappers) ---
+        
+        async function handlePilgrimRegistration(event) {
+            event.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-password').value;
+
+            try {
+                const response = await fetch(`${API_URL}?action=register_pilgrim`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, phone, password })
+                });
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alertBox('Registration Complete', `Welcome, ${name}! Use your phone number to log in.`, 'success');
+                    event.target.reset();
+                    navigate('login', 'pilgrim');
+                    document.getElementById('username').value = phone;
+                } else {
+                    alertBox('Registration Failed', result.message || 'Error during registration.', 'error');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Could not register user.', 'error');
+            }
+        }
+
+        async function handleComplaintSubmit(event) {
+            event.preventDefault();
+            const qrCode = document.getElementById('qr-code').value;
+            const description = document.getElementById('description').value;
+            const contact = document.getElementById('contact').value;
+
+            try {
+                const response = await fetch(`${API_URL}?action=file_complaint`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ qr_code: qrCode, description, contact })
+                });
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alertBox('Complaint Submitted!', `ID ${result.complaint_id} filed. Status: Pending.`, 'success');
+                    event.target.reset();
+                    navigate('pilgrim-status');
+                } else {
+                    alertBox('Submission Failed', result.message || 'Error submitting complaint.', 'error');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Could not connect to the backend.', 'error');
+            }
+        }
+        
+        async function fetchPilgrimStatus() {
+            // Show a loading screen while fetching
+            contentArea.innerHTML = '<div class="center-text" style="padding: 50px;">Loading Complaint History...</div>';
+            
+            try {
+                const response = await fetch(`${API_URL}?action=get_pilgrim_status&contact=${currentPilgrimPhone || currentUserId}`);
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    renderPilgrimStatus(result.complaints);
+                } else {
+                    alertBox('Status Error', result.message || 'Failed to load complaint status.', 'error');
+                    navigate('pilgrim-dashboard');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Failed to fetch status from the server.', 'error');
+                navigate('pilgrim-dashboard');
+            }
+        }
+
+        async function fetchOfficialDashboard() {
+            contentArea.innerHTML = '<div class="center-text" style="padding: 50px;">Loading Official Dashboard...</div>';
+            try {
+                const response = await fetch(`${API_URL}?action=get_official_dashboard`);
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    renderOfficialDashboard(result);
+                } else {
+                    alertBox('Dashboard Error', result.message || 'Failed to load official data.', 'error');
+                    navigate('landing');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Failed to fetch dashboard data.', 'error');
+                navigate('landing');
+            }
+        }
+
+        async function assignTask(complaintId) {
+            const selectElement = document.getElementById(`worker-select-${complaintId}`);
+            const workerId = selectElement.value;
+
+            if (!workerId) {
+                alertBox('Error', 'Please select a worker before assigning.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}?action=assign_task`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ complaint_id: complaintId, worker_id: workerId })
+                });
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alertBox('Task Assigned', result.message, 'success');
+                    fetchOfficialDashboard(); // Reload dashboard
+                } else {
+                    alertBox('Assignment Failed', result.message, 'error');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Failed to assign task.', 'error');
+            }
+        }
+        
+        async function fetchWorkerTasks() {
+            contentArea.innerHTML = '<div class="center-text" style="padding: 50px;">Loading Assigned Tasks...</div>';
+            try {
+                const response = await fetch(`${API_URL}?action=get_worker_tasks&worker_id=${currentUserId}`);
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    renderWorkerDashboard(result.tasks);
+                } else {
+                    alertBox('Task Error', result.message || 'Failed to load tasks.', 'error');
+                    navigate('landing');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Failed to fetch worker tasks.', 'error');
+                navigate('landing');
+            }
+        }
+        
+        async function handleTaskCompletion(event) {
+            event.preventDefault();
+            const form = event.target;
+            const complaintId = form.getAttribute('data-id');
+            const notes = document.getElementById('completion-notes').value;
+            const photoFile = document.getElementById('completion-photo').files[0];
+
+            if (!photoFile) { alertBox('Missing Photo', 'Worker must upload a completion photo.', 'error'); return; }
+            if (!notes) { alertBox('Missing Notes', 'Worker must provide notes about the job completion.', 'error'); return; }
+
+            // Mocking the file upload to get a filename (real upload logic is complex)
+            const photoFilename = photoFile.name || 'mock_proof.jpg';
+            
+            try {
+                const response = await fetch(`${API_URL}?action=complete_task`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ complaint_id: complaintId, notes, photo_filename: photoFilename })
+                });
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    alertBox('Task Completed', result.message, 'success');
+                    document.getElementById('completion-form-area').style.display = 'none';
+                    fetchWorkerTasks(); // Reload tasks
+                } else {
+                    alertBox('Completion Failed', result.message, 'error');
+                }
+            } catch (error) {
+                alertBox('Network Error', 'Failed to submit completion.', 'error');
+            }
+        }
+
+        // --- Utility Functions ---
+
+        function renderLogoutButton() {
+            return `
+                <div class="mt-12 center-text">
+                    <button onclick="logout()" class="btn-text" style="border: 1px solid #ccc; border-radius: 9999px; padding: 8px 16px; color: #6b7280;">
+                        Sign Out
+                    </button>
+                </div>
+            `;
+        }
+
+        function logout() {
+            currentUserRole = null;
+            currentUserId = null;
+            currentPilgrimPhone = null;
+            currentView = 'landing';
+            render();
+            alertBox('Logged Out', 'You have been successfully logged out.', 'info');
+        }
+
+        function alertBox(title, message, type) {
+            const box = document.createElement('div');
+            box.className = `alert-box alert-${type}`;
+            box.innerHTML = `
+                <h4 style="font-weight: 700; margin: 0 0 4px 0; font-size: 1rem;">${title}</h4>
+                <p style="font-size: 0.875rem; margin: 0;">${message}</p>
+            `;
+
+            document.body.appendChild(box);
+
+            // Animate in
+            setTimeout(() => {
+                box.classList.add('show');
+            }, 10);
+
+            // Animate out and remove after 5 seconds
+            setTimeout(() => {
+                box.classList.remove('show');
+                box.addEventListener('transitionend', () => box.remove());
+            }, 5000);
+        }
+
+        // --- Event Listener Attachment ---
+        function attachEventListeners() {
+            const regForm = document.getElementById('pilgrim-registration-form');
+            if (regForm) regForm.onsubmit = handlePilgrimRegistration;
+
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) loginForm.onsubmit = handleLogin;
+
+            const complaintForm = document.getElementById('complaint-form');
+            if (complaintForm) complaintForm.onsubmit = handleComplaintSubmit;
+
+            const completionForm = document.getElementById('task-completion-form');
+            if (completionForm) completionForm.onsubmit = handleTaskCompletion;
+        }
+
+        // Initialize the app view
+        window.onload = function() {
+            render();
+        };
+
+    </script>
+</body>
+</html>
